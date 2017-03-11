@@ -43,7 +43,7 @@ module NippouGen
 
       body_md.each_line do |line|
         if start | fin
-          fin = line.include?('# 所感')
+          fin = line.match(/^##\s/)
           break if fin
           todo << line.gsub(/(\r\n|\r)/, "\n")
           next
