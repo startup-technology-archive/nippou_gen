@@ -36,7 +36,7 @@ module NippouGen
         if start | fin
           fin = line.include?('# 所感')
           break if fin
-          todo << line
+          todo << line.gsub(/(\r\n|\r)/, "\n")
           next
         end
         start = line.include?('# 明日の作業予定')
