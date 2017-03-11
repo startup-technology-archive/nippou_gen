@@ -8,6 +8,8 @@ gem 'activesupport'
 gem 'slack-api'
 gem 'octokit'
 gem 'esa'
+gem 'ruby-trello'
+gem 'launchy'
 
 gem 'pry'
 gem 'pry-byebug'
