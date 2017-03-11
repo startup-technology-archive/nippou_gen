@@ -7,7 +7,7 @@ gem 'envyable'
 gem 'activesupport'
 gem 'slack-api'
 gem 'octokit'
+gem 'esa'
 
 gem 'pry'
 gem 'pry-byebug'
-
