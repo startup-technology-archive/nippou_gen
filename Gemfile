@@ -4,4 +4,7 @@ ruby '2.4.0'
 gem 'rake'
 gem 'envyable'
 gem 'activesupport'
-gem 'slack'
+gem 'slack-api'
+
+gem 'pry'
+
