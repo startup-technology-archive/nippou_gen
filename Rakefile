@@ -33,6 +33,7 @@ task :default do
     response = STDIN.gets.chomp
     case response
       when /^[yY]/
+        File.delete(file)
         sh "bin/nippou generate | vim -c ':f #{file}' -"
       else
         sh "vim #{file}"
