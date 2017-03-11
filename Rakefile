@@ -1,4 +1,4 @@
-require 'src/nippou_gen'
+require 'lib/nippou_gen'
 
 task :generate do
 
