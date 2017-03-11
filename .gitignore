@@ -55,3 +55,4 @@ config/env.yml
 
 reports/
 !reports/.keep
+templates/*.local.md.erb

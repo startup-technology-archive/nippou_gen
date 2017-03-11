@@ -4,8 +4,10 @@
 ## 使い方
 
 ```
-rake
+cp config/env.yml.example config/env.yml
 ```
+
+`rake` コマンドを実行すると日報 Markdown が作成され、Vim で開かれます。 Vim を終了すると日報が esa.io に Ship It! されます。
 
 ## How to get Slack Token
 
@@ -18,3 +20,7 @@ rake
 ## How to get esa.io Token
 
 [ここ](https://staruptechnology.esa.io/user/applications) から `Personal access tokens` を取得してください。
+
+## テンプレートカスタマイズ
+
+`template/*.local.md.erb` を作成して env.yml で指定してください。このファイルはgitignoreされています。
