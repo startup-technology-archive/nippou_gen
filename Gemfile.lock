@@ -6,7 +6,10 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     awesome_print (1.7.0)
+    byebug (9.0.6)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     envyable (1.2.0)
@@ -24,11 +27,20 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    octokit (4.6.2)
+      sawyer (~> 0.8.0, >= 0.5.3)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
+    public_suffix (2.0.5)
     rake (12.0.0)
+    sawyer (0.8.1)
+      addressable (>= 2.3.5, < 2.6)
+      faraday (~> 0.8, < 1.0)
     slack-api (1.4.0)
       faraday (~> 0.11)
       faraday_middleware (~> 0.10.0)
@@ -50,7 +62,9 @@ DEPENDENCIES
   activesupport
   awesome_print
   envyable
+  octokit
   pry
+  pry-byebug
   rake
   slack-api
 
