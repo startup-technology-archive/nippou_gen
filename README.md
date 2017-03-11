@@ -26,6 +26,10 @@ cp config/env.yml.example config/env.yml
 
 `template/*.local.md.erb` を作成して env.yml で指定してください。このファイルはgitignoreされています。
 
+## 稼働時間
+
+Slackの分報チャンネルで業務開始時に `開始`、終了時に `終了` と投稿してください。稼働時間が自動的に計算されます。
+
 ## 便利な使い方
 
 エイリアス作ると便利。
