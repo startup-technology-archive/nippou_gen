@@ -21,6 +21,30 @@ module NippouGen
       response.body['url']
     end
 
+    def self.yesterday_todo
+      client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
+      screen_name = client.user.body['screen_name']
+
+      yesterday_report = client.posts(q: "user:#{screen_name} category: 日報").body['posts'][0]
+      body_md = yesterday_report['body_md']
+
+      start = false
+      fin = false
+      todo = []
+
+      body_md.each_line do |line|
+        if start | fin
+          fin = line.include?('# 所感')
+          break if fin
+          todo << line
+          next
+        end
+        start = line.include?('# 明日の作業予定')
+      end
+
+      todo.join(nil).chomp!
+    end
+
     def self.my_posts
       client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
       client.posts(q: "user:#{@screen_name}")
