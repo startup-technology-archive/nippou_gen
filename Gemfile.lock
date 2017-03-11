@@ -1,12 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    envyable (1.2.0)
+      thor (>= 0.18.1, < 2.0)
     rake (11.2.2)
+    thor (0.19.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  envyable
   rake
 
 RUBY VERSION
