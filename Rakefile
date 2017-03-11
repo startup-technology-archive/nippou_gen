@@ -31,3 +31,11 @@ namespace :slack do
     end
   end
 end
+
+namespace :github do
+  task :show do
+    NippouGen::Github.events.each do |event|
+      p event
+    end
+  end
+end

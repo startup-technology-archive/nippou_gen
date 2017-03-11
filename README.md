@@ -11,6 +11,10 @@ rake
 
 [ここ](https://api.slack.com/custom-integrations/legacy-tokens) から `Create token` をしてください。
 
+## How to get GitHub Token
+
+[ここ](https://github.com/settings/tokens) から `Generate new token` をしてください。 `repo` に権限つけてください。
+
 ## How to get esa.io Token
 
 [ここ](https://staruptechnology.esa.io/user/applications) から `Personal access tokens` を取得してください。
