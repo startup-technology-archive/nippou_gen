@@ -22,26 +22,26 @@ module NippouGen
       @times_messages ||= @client.channels_history(channel: "#{times_channel['id']}")["messages"]
     end
 
-    def today_message
+    def today_messages
       @today_message ||= @client.channels_history(channel: "#{times_channel['id']}", oldest: begin_ts, latest: end_ts)["messages"]
     end
 
     def show_messages
-      today_message.each do |message|
+      today_messages.each do |message|
         user_name = users[message["user"]]
         text = message["text"].inspect
         puts "  - #{user_name}: #{text} :#{message['ts']}"
       end
     end
 
+    def users
+      @users ||= Hash[@client.users_list["members"].map{|m| [m["id"], m["name"]]}]
+    end
+
     private
 
     def owner_id
       @owner_id ||= users.find { |_, name| name == ENV['SLACK_USER_NAME'] }.first
-    end
-
-    def users
-      @users ||= Hash[@client.users_list["members"].map{|m| [m["id"], m["name"]]}]
     end
 
     def begin_ts

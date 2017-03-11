@@ -14,3 +14,14 @@
 
 
 ## 所感
+
+
+## Slack times
+
+<%- reports[:slack_times_messages].each do |message| -%>
+
+##### <%= user_name = reports[:slack_users][message['user']] %>
+
+<%= message['text'].gsub(/^/, '> ') %>
+
+<%- end -%>
