@@ -12,13 +12,13 @@ module NippouGen
         today_event = case event.type
                       when 'PullRequestEvent'
                         {
-                          type: 'PullRequest',
+                          type: 'PR',
                           url: event.payload.pull_request.html_url,
                           title: event.payload.pull_request.title
                         }
                       when 'PullRequestReviewCommentEvent'
                         {
-                          type: 'PullRequestReview',
+                          type: 'Review',
                           url: event.payload.pull_request.html_url,
                           title: event.payload.pull_request.title
                         }
@@ -27,7 +27,7 @@ module NippouGen
         next if today_events.include? today_event
         today_events << today_event
       end
-      today_events
+      today_events.reverse
     end
 
     def initialize() 

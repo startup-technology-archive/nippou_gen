@@ -6,7 +6,8 @@ task :generate do
     today_works: [
       '朝起きて', '昼寝して', '布団で寝る'
     ],
-    slack_times: NippouGen::SlackTimes.messages
+    slack_messages: NippouGen::SlackTimes.messages,
+    github_events: NippouGen::Github.events
   )
 end
 
@@ -35,7 +36,7 @@ end
 namespace :github do
   task :show do
     NippouGen::Github.events.each do |event|
-      p event
+      puts "[#{event[:type]}] #{event[:title]} #{event[:url]}"
     end
   end
 end

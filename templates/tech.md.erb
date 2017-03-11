@@ -16,8 +16,14 @@
 ## 所感
 
 
-## Slack times
+## GitHub Events
 
-<%- reports[:slack_times].each do |message| -%>
+<%- reports[:github_events].each do |event| -%>
+[<%= event[:type] %>] [<%= event[:title] %>](<%= event[:url] %>)
+<%- end -%>
+
+## Slack Times
+
+<%- reports[:slack_messages].each do |message| -%>
 [<%= message[:time] %>] <%= message[:user] %>: <%= message[:text] %>
 <%- end -%>
