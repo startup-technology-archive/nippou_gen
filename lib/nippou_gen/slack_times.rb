@@ -1,6 +1,4 @@
 require 'slack'
-require 'active_support'
-require 'active_support/core_ext'
 require './config/slack.rb'
 
 module NippouGen
@@ -45,11 +43,11 @@ module NippouGen
     end
 
     def begin_ts
-      Time.now.beginning_of_day.to_i
+      Time.zone.now.beginning_of_day.to_i
     end
 
     def end_ts
-      Time.now.end_of_day.to_i
+      Time.zone.now.end_of_day.to_i
     end
   end
 end
