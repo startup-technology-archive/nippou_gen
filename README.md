@@ -7,7 +7,6 @@
 rake
 ```
 
-<<<<<<< HEAD
 ## How to get Slack Token
 
 [ここ](https://api.slack.com/custom-integrations/legacy-tokens) から `Create token` をしてください。
