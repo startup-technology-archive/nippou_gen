@@ -11,8 +11,9 @@ end
 task :ship do
   # esa に ship it! する
   text = File.read(NippouGen::Generator.todays_report_file)
-  NippouGen::Esa.ship_it!(text)
-  puts 'Ship It!'
+  url = NippouGen::Esa.ship_it!(text)
+  puts "Ship It! => #{url}"
+  sh "open #{url}"
 end
 
 task :default do

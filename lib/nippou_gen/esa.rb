@@ -7,7 +7,7 @@ module NippouGen
 
       date = Time.zone.now
 
-      client.create_post(
+      response = client.create_post(
         {
           name:       "日報/#{date.year}/#{date.month}/#{date.day}/#{ENV['REPORT_NAME']}",
           body_md:    md_text,
@@ -18,6 +18,7 @@ module NippouGen
           updated_by: 'esa_bot'
         }
       )
+      response.body['url']
     end
 
     def initialize
