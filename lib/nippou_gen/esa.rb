@@ -1,4 +1,5 @@
 require 'esa'
+require 'pry-byebug'
 
 module NippouGen
   class Esa
@@ -20,32 +21,17 @@ module NippouGen
       )
     end
 
-    def initialize
-      @client = Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
-      @screen_name = @client.user.body['screen_name']
+    def self.my_posts
+      client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
+      client.posts(q: "user:#{@screen_name}")
     end
 
-    def post(markdown_text)
-      @client.create_post(
-        {
-          name:       "日報/#{Date.current.year}/#{Date.current.month}/#{Date.current.day}/nipou_genから投稿しました",
-          body_md:    markdown_text,
-          tags:       ['nipou_gen'],
-          category:   '',
-          wip:        false,
-          message:    'いえーめっちゃホリデイ！',
-          updated_by: 'esa_bot'
-        }
-      )
-    end
+    def self.todo
+      config = YAML.load_file('config/env.yml')
+      client = ::Esa::Client.new(access_token: config['ESA_ACCESS_TOKEN'], current_team: config['ESA_TEAM_NAME'])
+      screen_name = client.user.body['screen_name']
 
-    def my_posts
-      @client.posts(q: "user:#{@screen_name}")
-    end
-
-    def yesterday_todo_txt
-      nippou = @client.posts(q: "user:#{@screen_name} category: 日報").body.first
-      body_md = nippou[1][1]['body_md']
+      body_md = client.posts(q: "user:#{screen_name} category: 日報").body['posts'][0]['body_md']
 
       start = false
       fin = false
@@ -54,8 +40,9 @@ module NippouGen
       body_md.each_line do |line|
         if start | fin
           fin = line.include?('# 学んだこと')
-          return if fin
+          return todo if fin
           todo += line
+          next
         end
 
         start = line.include?('# 明日の作業予定')
@@ -65,6 +52,5 @@ module NippouGen
 end
 
 if __FILE__ == $0
-  esa = NippouGen::EsaGen.new
-  esa.yesterday_todo_txt
+  puts NippouGen::Esa.todo
 end
