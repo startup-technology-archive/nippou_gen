@@ -7,4 +7,4 @@ gem 'activesupport'
 gem 'slack-api'
 
 gem 'pry'
-
+gem 'awesome_print'

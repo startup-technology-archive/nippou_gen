@@ -1,5 +1,8 @@
 require 'slack'
-require './config/slack.rb'
+
+Slack.configure do |config|
+  config.token = ENV['SLACK_TOKEN']
+end
 
 module NippouGen
   class SlackTimes
@@ -52,7 +55,3 @@ module NippouGen
   end
 end
 
-if __FILE__ == $0
-  slack_times = NippouGen::SlackTimes.new
-  slack_times.show_messages
-end
