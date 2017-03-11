@@ -11,7 +11,7 @@ module NippouGen
         tags:       ['nippou_gen'],
         category:   "日報/#{date.year}/#{date.month}/#{date.day}",
         wip:        false,
-        message:    '日報かいたよ',
+        message:    '日報を書いたよ',
         #updated_by: 'esa_bot'
       }
 
@@ -20,7 +20,7 @@ module NippouGen
       if post.nil?
         response = client.create_post(data)
       else
-        response = client.update_post(post['number'], data)
+        response = client.update_post(post['number'], data.merge({message: '日報を編集したよ'}))
       end
 
       if response.body.key?('error')
