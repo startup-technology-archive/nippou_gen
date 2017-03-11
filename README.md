@@ -3,6 +3,7 @@
 
 ## 使い方
 
+example をコピーして env.yml を作ってください。
 ```
 cp config/env.yml.example config/env.yml
 ```
