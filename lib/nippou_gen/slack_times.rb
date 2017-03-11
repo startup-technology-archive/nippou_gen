@@ -19,11 +19,11 @@ module NippouGen
 
     # https://api.slack.com/methods/channels.history
     def times_messages
-      @client.channels_history(channel: "#{times_channel['id']}")["messages"]
+      @times_messages ||= @client.channels_history(channel: "#{times_channel['id']}")["messages"]
     end
 
     def today_message
-      times_messages.select { |message| message['ts'].to_i.between?(begin_ts, end_ts) }
+      @today_message ||= @client.channels_history(channel: "#{times_channel['id']}", oldest: begin_ts, latest: end_ts)["messages"]
     end
 
     def show_messages
