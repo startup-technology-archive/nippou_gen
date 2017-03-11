@@ -1,4 +1,5 @@
 require './lib/nippou_gen'
+require './lib/nippou_gen/slack_times'
 
 task :generate do
   NippouGen::Generator.generate(
