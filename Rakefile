@@ -2,8 +2,11 @@ require './lib/nippou_gen'
 require './lib/nippou_gen/slack_times'
 
 task :generate do
+  slack_messages = NippouGen::SlackTimes.messages
+
   NippouGen::Generator.generate(
-    slack_messages: NippouGen::SlackTimes.messages,
+    slack_messages: slack_messages,
+    slack_operating_time: NippouGen::SlackTimes.operating_time(slack_messages),
     github_events: NippouGen::Github.events,
     esa_yesterday_todo: NippouGen::Esa.yesterday_todo
   )
