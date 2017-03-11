@@ -1,5 +1,5 @@
-require 'lib/nippou_gen'
+require './lib/nippou_gen'
 
 task :generate do
-
+  NippouGen::Generator.generate!
 end
