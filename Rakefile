@@ -18,8 +18,8 @@ task :ship do
   # esa に ship it! する
   text = File.read(NippouGen::Generator.today_report_file)
   url = NippouGen::Esa.ship_it!(text)
-  puts "Ship It! => #{url}"
-  sh "open #{url}"
+  puts "Ship It!"
+  sh "open #{url}" if url
 end
 
 task :default do
@@ -28,23 +28,17 @@ task :default do
 
   Dir.mkdir(dir) unless Dir.exist?(dir)
 
-  if File.exist?(file)
-    print "Today's report exist! Will you overwrite? [Y|n]: "
-    response = STDIN.gets.chomp
-    case response
-      when /^[yY]/
-        File.delete(file)
-        sh "bin/nippou generate | vim -c ':f #{file}' -"
-      else
-        sh "vim #{file}"
-        return
-    end
-  else
+  post = NippouGen::Esa.today_report
+
+  if post.nil?
     sh "bin/nippou generate | vim -c ':f #{file}' -"
+  else
+    sh "bin/nippou esa:today_report | vim -c ':f #{file}' -"
   end
 
   if File.exist?(file)
     Rake::Task[:ship].invoke
+    File.delete(file)
   end
 end
 
@@ -60,6 +54,17 @@ namespace :github do
   task :show do
     NippouGen::Github.events.each do |event|
       puts "[#{event[:type]}] #{event[:title]} #{event[:url]}"
+    end
+  end
+end
+
+namespace :esa do
+  task :today_report do
+    post = NippouGen::Esa.today_report
+    if post.nil?
+      puts 'Not found.'
+    else
+      puts post['body_md']
     end
   end
 end

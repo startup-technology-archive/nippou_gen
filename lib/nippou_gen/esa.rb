@@ -4,28 +4,37 @@ module NippouGen
   class Esa
     def self.ship_it!(md_text)
       client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
-
       date = Time.zone.now
+      data = {
+        name:       "#{ENV['REPORT_NAME']}",
+        body_md:    md_text,
+        tags:       ['nippou_gen'],
+        category:   "日報/#{date.year}/#{date.month}/#{date.day}",
+        wip:        false,
+        message:    '日報かいたよ',
+        #updated_by: 'esa_bot'
+      }
 
-      response = client.create_post(
-        {
-          name:       "日報/#{date.year}/#{date.month}/#{date.day}/#{ENV['REPORT_NAME']}",
-          body_md:    md_text,
-          tags:       ['nippou_gen'],
-          category:   '',
-          wip:        false,
-          message:    '日報 gen',
-          updated_by: 'esa_bot'
-        }
-      )
-      response.body['url']
+      post = today_report
+
+      if post.nil?
+        response = client.create_post(data)
+      else
+        response = client.update_post(post['number'], data)
+      end
+
+      if response.body.key?('error')
+        puts response.body['message']
+      end
+
+      response.body['url'] || nil
     end
 
     def self.yesterday_todo
       client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
       screen_name = client.user.body['screen_name']
 
-      yesterday_report = client.posts(q: "user:#{screen_name} category: 日報").body['posts'][0]
+      yesterday_report = client.posts(q: "user:#{screen_name} category:日報").body['posts'][0]
       body_md = yesterday_report['body_md']
 
       start = false
@@ -43,6 +52,15 @@ module NippouGen
       end
 
       todo.join(nil).chomp!
+    end
+
+    def self.today_report
+      client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
+      date = Time.zone.now
+      screen_name = client.user.body['screen_name']
+      post_category = "日報/#{date.year}/#{date.month}/#{date.day}"
+      post_name = ENV['REPORT_NAME']
+      client.posts(q: "user:#{screen_name} category:#{post_category} name:#{post_name}").body['posts'][0]
     end
 
     def self.my_posts
