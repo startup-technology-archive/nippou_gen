@@ -24,4 +24,19 @@
 
 <%= message['text'].gsub(/^/, '> ') %>
 
+  <%- if message.has_key?('attachments') -%>
+    <%- message['attachments'].each do |attachment| -%>
+      <%- if attachment.has_key?('image_url') -%>
+<img src=<%= attachment['image_url'] %> />
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+
+  <%- if message['subtype'] == 'file_share' -%>
+    <% if message['file']['mimetype'] =~ /^image/ %>
+<img src=<%= message['file']['thumb_960'] %> />
+    <% end %>
+  <%- end -%>
 <%- end -%>
+
+
