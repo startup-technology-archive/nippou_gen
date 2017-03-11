@@ -5,5 +5,6 @@ task :generate do
 end
 
 task :default, :generate do
+  # Vim 以外は認めない
   sh "vim #{NippouGen::Generator.todays_report_file}"
 end
