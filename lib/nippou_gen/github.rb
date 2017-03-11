@@ -1,23 +1,41 @@
-require 'yaml'
-
-require 'envyable'
-
-require 'rubygems'
-require 'active_support'
-require 'active_support/time'
 require 'octokit'
-require 'pry-byebug'
-require_relative '../nippou_gen'
 
 module NippouGen
   class Github
+    def self.events
+      client = Octokit::Client.new(login: ENV['GITHUB_ID'], access_token: ENV['GITHUB_ACCESS_TOKEN'])
+
+      events = client.user_events(ENV['GITHUB_ID'])
+      today_events = []
+      events.each do |event|
+        next unless event.created_at.to_date == Time.zone.today
+        today_event = case event.type
+                      when 'PullRequestEvent'
+                        {
+                          type: 'PullRequest',
+                          url: event.payload.pull_request.html_url,
+                          title: event.payload.pull_request.title
+                        }
+                      when 'PullRequestReviewCommentEvent'
+                        {
+                          type: 'PullRequestReview',
+                          url: event.payload.pull_request.html_url,
+                          title: event.payload.pull_request.title
+                        }
+                      end
+        next if today_event.nil?
+        next if today_events.include? today_event
+        today_events << today_event
+      end
+      today_events
+    end
+
     def initialize() 
       config = YAML.load_file('config/env.yml')
       @github = config['github']
       @output = config['output']
       @client = Octokit::Client.new(login: @github['id'], access_token: @github['access_token'])
     end
-
 
     def github_events
       events = @client.user_events(@github['id'])
