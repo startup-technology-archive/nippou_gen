@@ -18,10 +18,6 @@
 
 ## Slack times
 
-<%- reports[:slack_times_messages].each do |message| -%>
-
-##### <%= user_name = reports[:slack_users][message['user']] %>
-
-<%= message['text'].gsub(/^/, '> ') %>
-
+<%- reports[:slack_times].each do |message| -%>
+[<%= message[:time] %>] <%= message[:user] %>:<%= message[:text] %>
 <%- end -%>
