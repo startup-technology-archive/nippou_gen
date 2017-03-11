@@ -20,7 +20,7 @@ cp config/env.yml.example config/env.yml
 
 ## How to get esa.io Token
 
-[ここ](https://staruptechnology.esa.io/user/applications) から `Personal access tokens` を取得してください。
+[ここ](https://staruptechnology.esa.io/user/applications) から `Personal access tokens` を取得してください。 `write` に権限をつけてください。
 
 ## テンプレートカスタマイズ
 
