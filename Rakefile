@@ -12,6 +12,8 @@ end
 
 task :ship do
   # esa に ship it! する
+  text = File.read(NippouGen::Generator.todays_report_file)
+  NippouGen::Esa.ship_it!(text)
   puts 'Ship It!'
 end
 

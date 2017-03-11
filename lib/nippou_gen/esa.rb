@@ -1,15 +1,25 @@
-require 'envyable'
-require 'active_support'
-require 'active_support/core_ext'
 require 'esa'
-require 'pry'
-require 'esa'
-require 'pry-byebug'
 
 module NippouGen
-  Envyable.load('config/env.yml')
+  class Esa
+    def self.ship_it!(md_text)
+      client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
 
-  class EsaGen
+      date = Time.zone.now
+
+      client.create_post(
+        {
+          name:       "日報/#{date.year}/#{date.month}/#{date.day}/#{ENV['REPORT_NAME']}",
+          body_md:    md_text,
+          tags:       ['nippou_gen'],
+          category:   '',
+          wip:        false,
+          message:    '日報 gen',
+          updated_by: 'esa_bot'
+        }
+      )
+    end
+
     def initialize
       @client = Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
     end

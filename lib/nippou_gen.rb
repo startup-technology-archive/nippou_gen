@@ -12,3 +12,4 @@ Time.zone = ENV['TIME_ZONE'] || 'UTC'
 
 require './lib/nippou_gen/generator'
 require './lib/nippou_gen/slack_times'
+require './lib/nippou_gen/esa'
