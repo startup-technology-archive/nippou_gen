@@ -1,5 +1,4 @@
 require 'esa'
-require 'pry-byebug'
 
 module NippouGen
   class Esa
