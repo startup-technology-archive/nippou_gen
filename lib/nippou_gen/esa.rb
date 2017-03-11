@@ -65,6 +65,7 @@ module NippouGen
         if start | fin
           fin = line.include?('# 学んだこと')
           return todo if fin
+          next if line == "\r\n"
           todo += line
           next
         end
