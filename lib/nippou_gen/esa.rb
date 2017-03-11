@@ -25,7 +25,7 @@ module NippouGen
       client.posts(q: "user:#{@screen_name}")
     end
 
-    def self.todo
+    def self.today_todo
       config = YAML.load_file('config/env.yml')
       client = ::Esa::Client.new(access_token: config['ESA_ACCESS_TOKEN'], current_team: config['ESA_TEAM_NAME'])
       screen_name = client.user.body['screen_name']
@@ -51,5 +51,5 @@ module NippouGen
 end
 
 if __FILE__ == $0
-  puts NippouGen::Esa.todo
+  puts NippouGen::Esa.today_todo
 end
