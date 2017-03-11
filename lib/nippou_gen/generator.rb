@@ -2,9 +2,10 @@ module NippouGen
   class Generator
     attr_accessor :file
 
-    def self.generate
+    def self.generate(reports = {})
       template = File.read("./templates/#{ENV['REPORT_TEMPLATE']}")
-      erb = ERB.new(template)
+      erb = ERB.new(template, 0, '%-')
+
       dir = todays_report_dir
       Dir.mkdir(dir) unless Dir.exist?(dir)
 
@@ -20,7 +21,7 @@ module NippouGen
         end
       end
 
-      File.write(todays_report_file, erb.result)
+      File.write(todays_report_file, result(erb, reports))
     end
 
     def self.todays_report_dir
@@ -32,6 +33,10 @@ module NippouGen
       today = Time.zone.now
       dir = todays_report_dir
       "#{dir}/#{today.year}-#{sprintf('%02d', today.month)}-#{sprintf('%02d', today.day)}.md"
+    end
+
+    def self.result(erb, reports)
+      erb.result(binding)
     end
   end
 end
