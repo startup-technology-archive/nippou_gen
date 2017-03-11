@@ -21,11 +21,6 @@ module NippouGen
       response.body['url']
     end
 
-    def self.my_posts
-      client = ::Esa::Client.new(access_token: ENV['ESA_ACCESS_TOKEN'], current_team: ENV['ESA_TEAM_NAME'])
-      client.posts(q: "user:#{@screen_name}")
-    end
-
     def self.today_todo
       config = YAML.load_file('config/env.yml')
       client = ::Esa::Client.new(access_token: config['ESA_ACCESS_TOKEN'], current_team: config['ESA_TEAM_NAME'])
@@ -41,6 +36,7 @@ module NippouGen
         if start | fin
           fin = line.include?('# 学んだこと')
           return todo if fin
+          next if line == "\r\n"
           todo += line
           next
         end
