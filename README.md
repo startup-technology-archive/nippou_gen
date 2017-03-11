@@ -7,8 +7,11 @@
 rake
 ```
 
+<<<<<<< HEAD
 ## How to get Slack Token
 
-ここから取れるよ
+[ここ](https://api.slack.com/custom-integrations/legacy-tokens) から `Create token` をしてください。
 
-[https://api.slack.com/custom-integrations/legacy-tokens](https://api.slack.com/custom-integrations/legacy-tokens)
+## How to get esa.io Token
+
+[ここ](https://staruptechnology.esa.io/user/applications) から `Personal access tokens` を取得してください。
