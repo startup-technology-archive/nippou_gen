@@ -7,7 +7,7 @@
 cp config/env.yml.example config/env.yml
 ```
 
-`rake` コマンドを実行すると日報 Markdown が作成され、Vim で開かれます。 Vim を終了すると日報が esa.io に Ship It! されます。
+`bin/nippou` コマンドを実行すると日報 Markdown が作成され、Vim で開かれます。 Vim を終了すると日報が esa.io に Ship It! されます。
 
 ## How to get Slack Token
 
@@ -24,3 +24,11 @@ cp config/env.yml.example config/env.yml
 ## テンプレートカスタマイズ
 
 `template/*.local.md.erb` を作成して env.yml で指定してください。このファイルはgitignoreされています。
+
+## 便利な使い方
+
+エイリアス作ると便利。
+
+```
+alias nippou='cd /path/to/nippou_gen && bin/nippou'
+```
