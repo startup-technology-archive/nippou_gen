@@ -1,8 +1,24 @@
 require 'slack'
-require './config/slack.rb'
+
+Slack.configure do |config|
+  config.token = ENV['SLACK_TOKEN']
+end
 
 module NippouGen
   class SlackTimes
+    def self.messages
+      slack_times = NippouGen::SlackTimes.new
+      slack_users = slack_times.users
+      res = slack_times.today_messages.map do |message|
+        {
+          time: Time.at(message['ts'].to_i).strftime('%m/%d %H:%M:%S'),
+          user: slack_users[message['user']],
+          text: message['text']
+        }
+      end
+      res.reverse
+    end
+
     def initialize
       @client = Slack::Client.new
     end
