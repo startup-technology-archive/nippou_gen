@@ -34,6 +34,12 @@ Slackの分報チャンネルで業務開始時に `開始`、終了時に `終�
 
 エイリアス作ると便利。
 
-```
+```sh
 alias nippou='cd /path/to/nippou_gen && bin/nippou'
+```
+
+```vimrc
+"alias
+command Check %s/\[ \]/[x]/c
+command Uncheck %s/\[x\]/[ ]/c
 ```
