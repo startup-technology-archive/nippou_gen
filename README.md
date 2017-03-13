@@ -24,7 +24,7 @@ cp config/env.yml.example config/env.yml
 
 ## テンプレートカスタマイズ
 
-`template/*.local.md.erb` を作成して env.yml で指定してください。このファイルはgitignoreされています。
+`templates/*.local.md.erb` を作成して env.yml で指定してください。このファイルはgitignoreされています。
 
 ## 稼働時間
 
