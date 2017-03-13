@@ -26,7 +26,7 @@ task :default do
   file = NippouGen::Generator.today_report_file
   dir = NippouGen::Generator.today_report_dir
 
-  Dir.mkdir(dir) unless Dir.exist?(dir)
+  FileUtils::mkdir_p(dir) unless Dir.exist?(dir)
 
   post = NippouGen::Esa.today_report
 
