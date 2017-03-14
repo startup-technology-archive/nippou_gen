@@ -8,7 +8,6 @@
 /spec/examples.txt
 /test/tmp/
 /test/version_tmp/
-/tmp/
 
 # Used by dotenv library to load environment variables.
 # .env
@@ -56,3 +55,6 @@ config/env.yml
 reports/
 !reports/.keep
 templates/*.local.md.erb
+
+tmp/google_tokens.yaml
+

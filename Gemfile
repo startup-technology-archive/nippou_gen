@@ -13,3 +13,6 @@ gem 'launchy'
 
 gem 'pry'
 gem 'pry-byebug'
+
+gem 'google-api-client', '~> 0.10.0'
+gem 'googleauth'
