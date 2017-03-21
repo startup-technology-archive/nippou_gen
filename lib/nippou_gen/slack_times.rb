@@ -53,23 +53,27 @@ module NippouGen
     end
 
     def self.operating_time(messages)
-      if start_message = messages.find { |message| message[:text].match(/\A開始/) }
-        start_time = if m =  start_message[:text].match(/\A開始 (?<hour>\d\d):(?<minute>\d\d)/)
-                      Time.now.change(hour: m[:hour], minute: m[:minute]).strftime('%m/%d %H:%M:%S')
-                     else
-                       start_message[:time]
-                     end
-        end_time = if end_message = messages.find { |message| message[:text].match(/\A終了/) }
-                     end_message[:time]
-                   else
-                     Time.now.strftime('%m/%d %H:%M:%S')
-                   end
-        {
-          start: start_time,
-          end: end_time,
-          operating_time: (Time.parse("1/1") + (Time.parse(end_time) - Time.parse(start_time)) ).strftime("%H時間%M分")
-        }
-      end
+      start_time =  if start_message = messages.find { |message| message[:text] && message[:text].match(/\A開始/) }
+                      if m = start_message[:text].match(/\A開始 (?<hour>\d\d):(?<minute>\d\d)/)
+                        Time.now.change(hour: m[:hour], minute: m[:minute]).strftime('%m/%d %H:%M:%S')
+                      else
+                        start_message[:time]
+                      end
+                    else
+                      message = messages.find { |m| !m[:user].nil? }
+                      message.fetch(:time, Time.now.strftime('%m/%d %H:%M:%S'))
+                    end
+
+      end_time = if end_message = messages.find { |message| message[:text] && message[:text].match(/\A終了/) }
+                   end_message[:time]
+                 else
+                   Time.now.strftime('%m/%d %H:%M:%S')
+                 end
+      {
+        start: start_time,
+        end: end_time,
+        operating_time: (Time.parse("1/1") + (Time.parse(end_time) - Time.parse(start_time)) ).strftime("%H時間%M分")
+      }
     end
 
     private
