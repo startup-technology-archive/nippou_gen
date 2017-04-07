@@ -26,6 +26,8 @@
 
 ## Slack Times
 
+<pre>
 <%- reports[:slack_messages].each do |message| -%>
 [<%= message[:time] %>] <%= message[:user] %>: <%= message[:text] %>
 <%- end -%>
+</pre>
