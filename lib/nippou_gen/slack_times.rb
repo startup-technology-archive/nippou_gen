@@ -59,9 +59,10 @@ module NippouGen
                       else
                         start_message[:time]
                       end
-                    else
-                      message = messages.find { |m| !m[:user].nil? }
+                    elsif message = messages.find { |msg| !msg[:user].nil? }
                       message.fetch(:time, Time.now.strftime('%m/%d %H:%M:%S'))
+                    else
+                      Time.now.strftime('%m/%d %H:%M:%S')
                     end
 
       end_time = if end_message = messages.find { |message| message[:text] && message[:text].match(/\A終了/) }
