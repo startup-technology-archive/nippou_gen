@@ -9,7 +9,7 @@ module NippouGen
         name:       "#{ENV['REPORT_NAME']}",
         body_md:    md_text,
         tags:       ['nippou_gen'],
-        category:   "日報/#{date.year}/#{date.month}/#{date.day}",
+        category:   "日報/#{date.year}/#{format('%02d', date.month)})/#{format('%02d', date.day)}",
         wip:        false,
         message:    '日報を書いたよ',
         #updated_by: 'esa_bot'
