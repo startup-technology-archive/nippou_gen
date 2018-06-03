@@ -22,6 +22,12 @@ cp config/env.yml.example config/env.yml
 
 [ここ](https://staruptechnology.esa.io/user/applications) から `Personal access tokens` を取得してください。 `write` に権限をつけてください。
 
+## How to get Google Calendar API Token etc.
+
+[ここ](https://console.developers.google.com) から Calendar API を使うように設定した Project を作成し、OAuth 2.0 クライアントID/Secret を発行してください。
+初回（またはトークンの有効期限が切れた状態で）プログラムを実行すると、OAuth認証のためのURLが発行されるので、ブラウザでURLにアクセスしてOAuth認証を通しましょう。
+一度認証が完了すると tmp/google_tokens.yaml に保存されるので、有効期限が切れるまで再度入力する必要はなくなります。
+
 ## テンプレートカスタマイズ
 
 `templates/*.local.md.erb` を作成して env.yml で指定してください。このファイルはgitignoreされています。

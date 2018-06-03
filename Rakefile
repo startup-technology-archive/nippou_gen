@@ -68,3 +68,13 @@ namespace :esa do
     end
   end
 end
+
+namespace :google_calendar do
+  task :show do
+    cal = NippouGen::GoogleCalendar.new(ENV['GOOGLE_USER_ID'])
+    cal.events.each do |event|
+      puts event
+    end
+  end
+end
+
